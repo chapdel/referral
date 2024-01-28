@@ -8,12 +8,11 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('migration_table_name_table', function (Blueprint $table) {
+        Schema::create(config('referral'), function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
+            $table->nullableMorph('referable');
+            $table->unsignedBigInteger(config('referral.foreign_key', 'user_id'))->index()->comment('referer_id');
             $table->timestamps();
-        });
+       });
     }
 };
